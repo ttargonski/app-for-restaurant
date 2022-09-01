@@ -2,8 +2,9 @@ import AddTable from "./components/AddTable";
 import TableList from "./components/TableList";
 import { RestaurantProvider } from "./context/restaurantContext";
 import { Routes, Route } from "react-router-dom";
-import Main from "./pages/Main";
+import NewOrder from "./pages/NewOrder";
 import ProductList from "./pages/ProductList";
+import TableSummary from "./pages/TableSummary";
 
 function App() {
   return (
@@ -13,13 +14,14 @@ function App() {
           <Route
             path="/"
             element={
-              <Main>
+              <NewOrder>
                 <AddTable />
                 <TableList />
-              </Main>
+              </NewOrder>
             }
           />
           <Route path="list-of-products" element={<ProductList />} />
+          <Route path="table-summary" element={<TableSummary />} />
         </Routes>
       </div>
     </RestaurantProvider>

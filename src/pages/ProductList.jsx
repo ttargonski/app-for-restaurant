@@ -3,6 +3,7 @@ import AddProduct from "../components/AddProduct";
 import EditProduct from "../components/EditProduct";
 import Product from "../components/Product";
 import RestaurantContext from "../context/restaurantContext";
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
   const { activeTable, tables, saveTable } = useContext(RestaurantContext);
@@ -77,9 +78,16 @@ const ProductList = () => {
       >
         Zapisz stolik
       </button>
-      <button type="button" className="btn btn-success mr-2">
-        Zapłać
-      </button>
+      <Link to="/table-summary">
+        <button
+          type="button"
+          className="btn btn-success mr-2"
+          onClick={() => saveTable(activeTable, tableOrder)}
+        >
+          Zapłać
+        </button>
+      </Link>
+      <h4 className="mt-3 text-success text-right">Do zapłaty {activeTable}</h4>
     </div>
   );
 };
