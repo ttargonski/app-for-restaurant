@@ -1,15 +1,26 @@
-import AddOrder from "./components/AddOrder";
+import AddTable from "./components/AddTable";
 import TableList from "./components/TableList";
 import { RestaurantProvider } from "./context/restaurantContext";
+import { Routes, Route } from "react-router-dom";
+import Main from "./pages/Main";
+import ProductList from "./pages/ProductList";
 
 function App() {
   return (
     <RestaurantProvider>
-      <div className="App container mt-5">
-        <div className="new__order row g-5">
-          <AddOrder />
-          <TableList />
-        </div>
+      <div className="container mt-3">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main>
+                <AddTable />
+                <TableList />
+              </Main>
+            }
+          />
+          <Route path="list-of-products" element={<ProductList />} />
+        </Routes>
       </div>
     </RestaurantProvider>
   );

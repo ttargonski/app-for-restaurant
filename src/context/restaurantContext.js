@@ -13,10 +13,44 @@ export function RestaurantProvider({ children }) {
     { id: 7, isBusy: false, inOrder: false, order: [] },
   ]);
 
-  const [menu, setMenu] = useState([]);
+  const [menu] = useState([
+    {
+      id: 1,
+      name: "Margherita Pizza",
+      price: 28.99,
+    },
+    { id: 2, name: "Pepperoni Pizza", price: 32.99 },
+    { id: 3, name: "Carbonara Pizza", price: 36.99 },
+    { id: 4, name: "Capriciosa Pizza", price: 38.99 },
+    { id: 5, name: "Neapolitan Pizza", price: 34.99 },
+    { id: 6, name: "Vegan Pizza", price: 35.99 },
+  ]);
+
+  const [activeTable, setActiveTable] = useState(Number);
+
+  const saveTable = (tableId, tableOrder) => {
+    setTables(
+      tables.map((table) => {
+        if (table.id === tableId) {
+          return { ...table, order: tableOrder };
+        } else {
+          return table;
+        }
+      })
+    );
+  };
 
   return (
-    <RestaurantContext.Provider value={{ tables, setTables }}>
+    <RestaurantContext.Provider
+      value={{
+        tables,
+        setTables,
+        activeTable,
+        setActiveTable,
+        menu,
+        saveTable,
+      }}
+    >
       {children}
     </RestaurantContext.Provider>
   );

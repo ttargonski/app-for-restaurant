@@ -1,8 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import RestaurantContext from "../context/restaurantContext";
 
 const TableList = () => {
-  const { tables } = useContext(RestaurantContext);
+  const { tables, setTables, setActiveTable } = useContext(RestaurantContext);
+
+  const onDelete = (id) => {
+    setTables(
+      tables.map((table) => {
+        if (table.id === id) {
+          return { ...table, isBusy: false, inOrder: false, order: [] };
+        }
+        return table;
+      })
+    );
+  };
 
   return (
     <div className="col-md-7 col-lg-8">
@@ -22,13 +34,21 @@ const TableList = () => {
                 <tr key={table.id}>
                   <th scope="row">Stolik nr {table.id}</th>
                   <td>
+                    <Link to={"/list-of-products"}>
+                      <button
+                        type="button"
+                        className="btn btn-outline-success mr-2"
+                        onClick={() => setActiveTable(table.id)}
+                      >
+                        Dodaj produkty
+                      </button>
+                    </Link>
+
                     <button
                       type="button"
-                      className="btn btn-outline-success mr-2"
+                      className="btn btn-outline-danger"
+                      onClick={() => onDelete(table.id)}
                     >
-                      Dodaj produkty
-                    </button>
-                    <button type="button" className="btn btn-outline-danger">
                       Usuń
                     </button>
                   </td>

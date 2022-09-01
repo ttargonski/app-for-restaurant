@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import RestaurantContext from "../context/restaurantContext";
 
-const AddOrder = () => {
+const AddTable = () => {
   // tables array
   const { tables, setTables } = useContext(RestaurantContext);
   // current number of table
@@ -54,4 +54,4 @@ const AddOrder = () => {
   );
 };
 
-export default AddOrder;
+export default AddTable;
