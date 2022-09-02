@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import RestaurantContext from "../context/restaurantContext";
 
 const TableList = () => {
-  const { tables, setTables, setActiveTable } = useContext(RestaurantContext);
+  const { tables, setTables, setActiveTable, saveOrder } =
+    useContext(RestaurantContext);
 
   const onDelete = (id) => {
     setTables(
@@ -37,10 +38,12 @@ const TableList = () => {
                     <Link to={"/list-of-products"}>
                       <button
                         type="button"
-                        className="btn btn-outline-success mr-2"
+                        className="btn btn-outline-primary mr-2"
                         onClick={() => setActiveTable(table.id)}
                       >
-                        Dodaj produkty
+                        {table.order.length === 0
+                          ? "Dodaj produkty"
+                          : "Edytuj produkty"}
                       </button>
                     </Link>
 
@@ -57,7 +60,11 @@ const TableList = () => {
           )}
         </tbody>
       </table>
-      <button type="button" className="btn btn-secondary">
+      <button
+        type="button"
+        className="btn btn-secondary"
+        onClick={() => saveOrder()}
+      >
         Zapisz zamówienie
       </button>
     </div>

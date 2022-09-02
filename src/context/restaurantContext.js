@@ -4,13 +4,13 @@ const RestaurantContext = createContext();
 
 export function RestaurantProvider({ children }) {
   const [tables, setTables] = useState([
-    { id: 1, isBusy: false, inOrder: false, order: [] },
-    { id: 2, isBusy: false, inOrder: false, order: [] },
-    { id: 3, isBusy: false, inOrder: false, order: [] },
-    { id: 4, isBusy: false, inOrder: false, order: [] },
-    { id: 5, isBusy: false, inOrder: false, order: [] },
-    { id: 6, isBusy: false, inOrder: false, order: [] },
-    { id: 7, isBusy: false, inOrder: false, order: [] },
+    { id: 1, isBusy: false, inOrder: false, order: [], totalPrice: 0 },
+    { id: 2, isBusy: false, inOrder: false, order: [], totalPrice: 0 },
+    { id: 3, isBusy: false, inOrder: false, order: [], totalPrice: 0 },
+    { id: 4, isBusy: false, inOrder: false, order: [], totalPrice: 0 },
+    { id: 5, isBusy: false, inOrder: false, order: [], totalPrice: 0 },
+    { id: 6, isBusy: false, inOrder: false, order: [], totalPrice: 0 },
+    { id: 7, isBusy: false, inOrder: false, order: [], totalPrice: 0 },
   ]);
 
   const [menu] = useState([
@@ -26,13 +26,37 @@ export function RestaurantProvider({ children }) {
     { id: 6, name: "Vegan Pizza", price: 35.99 },
   ]);
 
+  const [orders, setOrders] = useState([]);
+
   const [activeTable, setActiveTable] = useState(Number);
 
-  const saveTable = (tableId, tableOrder) => {
+  const saveTable = (tableId, tableOrder, totalPrice) => {
     setTables(
       tables.map((table) => {
         if (table.id === tableId) {
-          return { ...table, order: tableOrder };
+          return { ...table, order: tableOrder, totalPrice: totalPrice };
+        } else {
+          return table;
+        }
+      })
+    );
+  };
+
+  const saveOrder = () => {
+    const tablesWithOrder = tables.filter(
+      (table) => table.isBusy && !table.inOrder
+    );
+    const id = Math.floor(1000 + Math.random() * 9000);
+    let orderPrice = 0;
+    tablesWithOrder.map((table) => (orderPrice += Number(table.totalPrice)));
+    setOrders([
+      ...orders,
+      { id: id, tables: tablesWithOrder, orderPrice: orderPrice },
+    ]);
+    setTables(
+      tables.map((table) => {
+        if (table.isBusy && !table.inOrder) {
+          return { ...table, inOrder: true };
         } else {
           return table;
         }
@@ -49,6 +73,7 @@ export function RestaurantProvider({ children }) {
         setActiveTable,
         menu,
         saveTable,
+        saveOrder,
       }}
     >
       {children}

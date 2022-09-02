@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import NewOrder from "./pages/NewOrder";
 import ProductList from "./pages/ProductList";
 import TableSummary from "./pages/TableSummary";
+import OrderList from "./pages/OrderList";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           />
           <Route path="list-of-products" element={<ProductList />} />
           <Route path="table-summary" element={<TableSummary />} />
+          <Route path="order-list" element={<OrderList />} />
         </Routes>
       </div>
     </RestaurantProvider>

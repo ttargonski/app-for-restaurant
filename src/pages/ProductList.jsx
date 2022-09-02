@@ -31,6 +31,12 @@ const ProductList = () => {
     );
   };
 
+  const getTotalPrice = () => {
+    let price = 0;
+    tableOrder.map((order) => (price += order.price * order.amount));
+    return price.toFixed(2);
+  };
+
   return (
     <div>
       <h4 className="mb-3 text-primary">Stolik nr {activeTable}</h4>
@@ -71,23 +77,28 @@ const ProductList = () => {
           <AddProduct addProductToList={addProductToList} />
         </tbody>
       </table>
-      <button
-        type="button"
-        className="btn btn-primary mr-2"
-        onClick={() => saveTable(activeTable, tableOrder)}
-      >
-        Zapisz stolik
-      </button>
+      <Link to="/">
+        <button
+          type="button"
+          className="btn btn-primary mr-2"
+          onClick={() => saveTable(activeTable, tableOrder, getTotalPrice())}
+        >
+          Zapisz stolik
+        </button>
+      </Link>
       <Link to="/table-summary">
         <button
           type="button"
           className="btn btn-success mr-2"
-          onClick={() => saveTable(activeTable, tableOrder)}
+          onClick={() => saveTable(activeTable, tableOrder, getTotalPrice())}
         >
           Zapłać
         </button>
       </Link>
-      <h4 className="mt-3 text-success text-right">Do zapłaty {activeTable}</h4>
+
+      <h4 className=" text-success text-right">
+        <small>Do zapłaty</small> {getTotalPrice()} zł
+      </h4>
     </div>
   );
 };
