@@ -6,10 +6,12 @@ import NewOrder from "./pages/NewOrder";
 import ProductList from "./pages/ProductList";
 import TableSummary from "./pages/TableSummary";
 import OrderList from "./pages/OrderList";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <RestaurantProvider>
+      <Navbar />
       <div className="container mt-3">
         <Routes>
           <Route

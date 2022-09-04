@@ -36,15 +36,23 @@ const TableList = () => {
                   <th scope="row">Stolik nr {table.id}</th>
                   <td>
                     <Link to={"/list-of-products"}>
-                      <button
-                        type="button"
-                        className="btn btn-outline-primary mr-2"
-                        onClick={() => setActiveTable(table.id)}
-                      >
-                        {table.order.length === 0
-                          ? "Dodaj produkty"
-                          : "Edytuj produkty"}
-                      </button>
+                      {table.order.length === 0 ? (
+                        <button
+                          type="button"
+                          className="btn btn-outline-success mr-2"
+                          onClick={() => setActiveTable(table.id)}
+                        >
+                          Dodaj produkty
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-outline-primary mr-2"
+                          onClick={() => setActiveTable(table.id)}
+                        >
+                          Edytuj produkty
+                        </button>
+                      )}
                     </Link>
 
                     <button
@@ -60,13 +68,15 @@ const TableList = () => {
           )}
         </tbody>
       </table>
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => saveOrder()}
-      >
-        Zapisz zamówienie
-      </button>
+      {tables.filter((table) => table.isBusy && !table.inOrder).length > 0 && (
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => saveOrder()}
+        >
+          Zapisz zamówienie
+        </button>
+      )}
     </div>
   );
 };

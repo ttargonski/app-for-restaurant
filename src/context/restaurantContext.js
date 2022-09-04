@@ -74,6 +74,7 @@ export function RestaurantProvider({ children }) {
         menu,
         saveTable,
         saveOrder,
+        orders,
       }}
     >
       {children}
